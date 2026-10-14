@@ -1,0 +1,30 @@
+{
+  "name": "opencode-rtl-fa",
+  "version": "1.0.0",
+  "description": "Persian and RTL output guard plugin for opencode: answers in Persian, laid out right to left, enforced at the output layer.",
+  "type": "module",
+  "main": "index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "files": [
+    "index.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "rtl",
+    "persian",
+    "farsi",
+    "bidi"
+  ],
+  "license": "GPL-2.0-or-later",
+  "peerDependencies": {
+    "@opencode-ai/plugin": "*"
+  },
+  "scripts": {
+    "test": "bun test"
+  }
+}
