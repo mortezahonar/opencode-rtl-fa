@@ -38,9 +38,11 @@ export interface RtlFaOptions {
 }
 
 export const RTL_REMINDER = [
-    "OUTPUT FORMAT (hard rule, overrides habit, applies to every reply you write, in chat and in every file):",
+    "OUTPUT FORMAT (hard rule, overrides habit, applies to every reply you write, in chat and in every file,",
+    "AND to your own thinking):",
+    "Think, reason, plan and deliberate in Persian only. Never reason in English, not even partially, not even",
+    "for tool calls, not even for code. The user reads your reasoning and cannot understand English.",
     "Write Persian, right to left.",
-    "Reason and think in Persian too, never in English.",
     "Begin EVERY line with the character U+200F (RLM) and then the Persian text, so every paragraph is",
     "laid out right to left and starts at the right edge.",
     "Never start a line with a Latin letter, a digit, a backtick, a hyphen, an asterisk, a bracket or a hash.",

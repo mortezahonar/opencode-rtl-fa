@@ -1,17 +1,17 @@
-‏# پلاگین opencode-rtl-fa
+‏## ‏پلاگین opencode-rtl-fa
 
 ‏پاسخ‌های اوپن‌کد را فارسی و راست‌چین می‌کند.
-‏فکر کردن مدل هم فارسی می‌شود.
-‏و مهم‌تر از همه: راست‌چینی به اطاعت مدل واگذار نشده است.
+‏مدل را به فارسی فکر کردن و فارسی نوشتن وادار می‌کند.
+‏و برای متن پاسخ، راست‌چینی به اطاعت مدل واگذار نشده است.
 
-‏## این پلاگین چه می‌کند
+‏## ‏این پلاگین چه می‌کند
 
 ‏دو لایهٔ مستقل دارد.
-‏لایهٔ اول، پیش از هر درخواست، یک یادآور کوتاه و امری به انتهای دستورهای سیستمی می‌چسباند تا مدل فارسی و راست‌چین بنویسد.
+‏لایهٔ اول، پیش از هر درخواست، یک یادآور کوتاه و امری به انتهای دستورهای سیستمی می‌چسباند تا مدل فارسی و راست‌چین بنویسد و استدلالش را هم فارسی انجام دهد.
 ‏لایهٔ دوم، پس از تولید پاسخ، متن نهایی را می‌گیرد و به هر سطر بیرون از بلوک کد نشانهٔ راست‌چین `U+200F` می‌دهد.
 ‏لایهٔ دوم به مدل وابسته نیست؛ خودش متن را اصلاح می‌کند.
 
-‏## نصب
+‏## ‏نصب
 
 ‏دو راه دارد.
 
@@ -43,7 +43,7 @@
 
 ‏در هر دو حالت، پس از تغییر باید اوپن‌کد را کامل ببندی و باز کنی. کانفیگ و پلاگین‌ها فقط هنگام راه‌اندازی خوانده می‌شوند.
 
-‏## تنظیمات
+‏## ‏تنظیمات
 
 ‏گزینه‌ها اختیاری‌اند:
 
@@ -69,35 +69,40 @@
 ‏`log` اگر مسیری بدهی، برای هر اقدام یک سطر در آن فایل نوشته می‌شود. برای عیب‌یابی خوب است.
 ‏`reminderText` متن دلخواه تو را جای یادآور پیش‌فرض می‌گذارد.
 
-‏## آنچه پلاگین انجام نمی‌دهد
+‏## ‏آنچه پلاگین انجام نمی‌دهد
 
 ‏رابط خود اوپن‌کد را ترجمه نمی‌کند. منوها، دکمه‌ها و پیام‌های داخلی برنامه بیرون از دسترس پلاگین‌ها هستند.
 ‏پس اگر دنبال فارسی شدن منوها هستی، این بسته آن کار را نمی‌کند.
 
-‏## محدودیت صریح
+‏## ‏محدودیت صریح
 
 ‏لایهٔ دوم به یک هوک آزمایشی اوپن‌کد تکیه دارد. اگر نسخهٔ تو آن هوک را صدا نزند، فقط لایهٔ اول کار می‌کند و تضمین قهری برقرار نمی‌شود.
 ‏برای بررسی، گزینهٔ `log` را بده و پر شدن فایل را ببین.
 
-‏## آزمون
+‏متن فکر کردن (reasoning) با هیچ هوکی بازنویسی نمی‌شود.
+‏در کد اوپن‌کد، هوک `experimental.text.complete` فقط در شاخهٔ `case "text-end"` صدا زده می‌شود و بخش متن با `type: "text"` ساخته می‌شود؛ یعنی این هوک به بخش reasoning دست نمی‌زند.
+‏پس فارسی بودن فکر کردن فقط از راه یادآور دستوری قابل تعقیب است، نه با اصلاح خودکار متن.
+‏اگر مدل سرسختی کند، فکر کردنش می‌تواند انگلیسی بماند، درحالی‌که متن پاسخ همچنان قهری راست‌چین می‌شود.
+
+‏## ‏آزمون
 
 ```bash
 bun test
 ```
 
-‏## مجوز
+‏## ‏مجوز
 
 ‏GNU General Public License, version 2 or any later version.
 ‏متن کامل در فایل `LICENSE` است.
 ‏Copyright (C) 2026 Morteza Honar
 
-‏---
+---
 
-‏## English
+## ‏English
 
 ‏A plugin for opencode that makes answers Persian and right to left.
 
-‏It has two layers. One appends a short reminder to the system prompt. The other rewrites the finished text of every reply and puts `U+200F` (RLM) in front of every line outside a fenced code block, so the text is laid out right to left. The second layer does not depend on the model obeying anything.
+‏It has two layers. One appends a short imperative reminder to the end of the system prompt, asking the model to think and write in Persian. The other rewrites the finished text of every reply and puts `U+200F` (RLM) in front of every line outside a fenced code block, so the text is laid out right to left. The second layer does not depend on the model obeying anything.
 
 ‏Install it by adding the package name to the `plugin` array in your config:
 
@@ -108,5 +113,7 @@ bun test
 ```
 
 ‏It does not translate the opencode interface itself; menus and built-in messages are out of reach for plugins.
+
+‏The reasoning stream cannot be rewritten by any hook: in the opencode source, `experimental.text.complete` is triggered only from the `case "text-end"` branch, whose part is created with `type: "text"`. Persian reasoning therefore relies on the prompt layer alone, not on enforcement.
 
 ‏Licensed under the GNU General Public License, version 2 or any later version.
